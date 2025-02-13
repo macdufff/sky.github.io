@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            place-content: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: #000;
+            color: white;
+        }
+        
+        .container {
+            --clr: #0f0;
+            position: relative;
+            top: 100px;
+            height: 400px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cloud {
+            position: relative;
+            width: 300px;
+            z-index: 100;
+            filter: drop-shadow(0 0 35px var(--clr));
+        }
+        
+        h2 {
+            position: absolute;
+            left: 50%;
+            background: var(--clr);
+            font-size: 2em;
+            font-weight: 400;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            color: #000;
+            padding: 0 10px;
+            border-radius: 10px;
+            margin: 0;
+        }
+        
+        h2::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 100px;
+            background: var(--clr);
+            top: -115px;
+            left: 50%;
+            border-radius: 100px;
+            transform: translateX(-50%);
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--clr);
+            box-shadow: 120px -30px 0 10px var(--clr);
+            border-radius: 50%;
+            top: -150px;
+            left: 25px;
+        }
+        
+        .drop {
+            position: absolute;
+            height: 20px;
+            color: var(--clr);
+            top: 60px;
+            line-height: 20px;
+            transform-origin: bottom;
+            animation: animate 2s linear infinite;
+        }
+        
+        @keyframes animate {
+            0% {
+                transform: translateY(0) scaleY(0);
+                transform-origin: top;
+            }
+            10% {
+                transform: translateY(0) scaleY(0.25);
+                transform-origin: top;
+            }
+            20% {
+                transform: translateY(0) scaleY(1);
+            }
+            70% {
+                transform: translateY(300px) scaleY(1);
+                transform-origin: bottom;
+            }
+            80% {
+                transform: translateY(300px) scaleY(1);
+                transform-origin: bottom;
+            }
+            100% {
+                transform: translateY(300px) scaleY(0);
+                transform-origin: bottom;
+                text-shadow: -180px 0 0 var(--clr), 180px 0 var(--clr);
+            }
+        }
+        
+        .container {
+            animation: animateColor 5s linear infinite;
+        }
+        
+        @keyframes animateColor {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body translate="no">
+    <div class="container">
+        <div class="cloud">
+            <h2>t.me/heartedtiktok</h2>
+        </div>
+    </div>
+
+    <script>
+        const cloud = document.querySelector('.cloud');
+
+        const randomText = () => {
+            const text = "t.me/heartedtiktok";
+            return text[Math.floor(Math.random() * text.length)];
+        };
+
+        const rain = () => {
+            const e = document.createElement('div');
+            e.classList.add('drop');
+            cloud.appendChild(e);
+
+            const left = Math.floor(Math.random() * 300);
+            const size = Math.random() * 1.5;
+            const duration = Math.random() * 1;
+
+            e.innerText = randomText();
+            e.style.left = `${left}px`;
+            e.style.fontSize = `${0.5 + size}em`;
+            e.style.animationDuration = `${1 + duration}s`;
+
+            setTimeout(
+                () => cloud.removeChild(e),
+                2000
+            );
+        };
+
+        setInterval(
+            () => rain(),
+            20
+        );
+    </script>
+
+    <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js"></script>
+    <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;909b686b5c9024b0&quot;,&quot;version&quot;:&quot;2025.1.0&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;45dbd882debd407aa7f085eaadd5a993&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}}}"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
